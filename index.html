@@ -65,6 +65,11 @@
   const locationId = 'LMJY97S69RNWK';
   let card;
     (async ()=> {
+      async function initializeCard(payments) {
+   const card = await payments.card();
+   await card.attach('#card-container'); 
+   return card; 
+ }
         async function createPayment(token) {
    const body = JSON.stringify({
      locationId,

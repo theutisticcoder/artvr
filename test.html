@@ -60,7 +60,17 @@
                 <p id="payment-status"></p>
         </div>
    <script>
+    
+ const appId = 'sandbox-sq0idb-gugPfkXrAATCLPFk3xp7IA';
+  const locationId = 'LEBJEEB92R5Z8';
+
+  let card;
 (async ()=> {
+  async function initializeCard(payments) {
+   const card = await payments.card();
+   await card.attach('#card-container'); 
+   return card; 
+ }
     async function createPayment(token) {
    const body = JSON.stringify({
      locationId,
@@ -95,10 +105,6 @@ async function tokenize(paymentMethod) {
    }
  }
 
- const appId = 'sandbox-sq0idb-gugPfkXrAATCLPFk3xp7IA';
-  const locationId = 'LEBJEEB92R5Z8';
-
-  let card;
 
   async function handlePaymentMethodSubmission(event, paymentMethod) {
     event.preventDefault();
