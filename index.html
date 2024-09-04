@@ -59,8 +59,9 @@ https://cdn.jsdelivr.net/npm/square/dist/cjs/index.min.js
             <button id="card-button" class="button-credit-card">Buy a print of Lakerise<br> <img height="100" width="100" src="lake.JPG"></button>
             <p id="payment-status"></p>
         </div>
-   <script>
-     
+   <script type="module">
+     import Square from 'https://cdn.jsdelivr.net/npm/square/+esm'
+
      const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production');  // Replace with your Application ID
 
      async function initializeCard(payments) {
