@@ -59,7 +59,7 @@
                 <div id="card-container"></div>
                 <button id="card-button" class="button-credit-card">Buy a print of Lakerise<br> <img height="100" width="100" src="lake.JPG"></button>
                 <p id="payment-status"></p>
-                <button hidden type="submit" id="pay">Pay</button>
+                <button type="submit" id="pay">Pay</button>
             </form>
            
         </div>
@@ -78,9 +78,6 @@
     try {
       card = await payments.card();
       await card.attach('#card-container');
-      document.getElementById( 'pay' ).hidden = false;
-      document.getElementById( 'card-button' ).hidden = true;
-
 
     } catch (e) {
       console.error('Initializing Card failed', e);
