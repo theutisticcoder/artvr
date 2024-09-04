@@ -60,7 +60,8 @@
                 <p id="payment-status"></p>
         </div>
    <script>
-    async function createPayment(token) {
+    (async ()=> {
+        async function createPayment(token) {
    const body = JSON.stringify({
      locationId,
      sourceId: token,
@@ -130,6 +131,7 @@
 await handlePaymentMethodSubmission(e, card);
     };
 
+    })()
    </script>
    </body>
 </html> 
