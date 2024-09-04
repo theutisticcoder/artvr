@@ -75,12 +75,10 @@
       document.querySelector("#card-button").disabled = true;
       const token = await tokenize(paymentMethod);
       const paymentResults = await createPayment(token);
-      displayPaymentResults('SUCCESS');
 
       console.debug('Payment Success', paymentResults);
     } catch (e) {
         document.querySelector("#card-button").disabled = false;
-      displayPaymentResults('FAILURE');
       console.error(e.message);
     }
   }
