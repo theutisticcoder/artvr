@@ -60,6 +60,18 @@
                 <p id="payment-status"></p>
         </div>
    <script>
+document.addEventListener('DOMContentLoaded', async function () {
+  if (!window.Square) {
+    throw new Error('Square.js failed to load properly');
+  }
+
+  const payments = window.Square.payments(appId, locationId);
+  try {
+    card = await initializeCard(payments);
+  } catch (e) {
+    console.error('Initializing Card failed', e);
+    return;
+  }
 
  const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
   const locationId = 'LMJY97S69RNWK';
@@ -86,6 +98,7 @@
   document.querySelector("#card-button").onclick = async (e)=> {
 await handlePaymentMethodSubmission(e, card);
     };
+});
    </script>
    </body>
 </html> 
