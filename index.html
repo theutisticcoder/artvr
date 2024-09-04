@@ -60,58 +60,25 @@
         </div>
    <script>
 
-     const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production');  // Replace with your Application ID
+ const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
+  const locationId = 'LMJY97S69RNWK';
 
-     async function initializeCard(payments) {
-         const card = await payments.card();
-         await card.attach('#card-container');
-         return card;
-     }
+  let card;
 
-     async function createPayment(token) {
-         const response = await fetch('/create-payment', {
-             method: 'POST',
-             headers: {
-                 'Content-Type': 'application/json',
-             },
-             body: JSON.stringify({
-                 sourceId: token,
-             }),
-         });
-
-         if (response.ok) {
-             return response.json();
-         }
-
-         const errorBody = await response.text();
-         throw new Error(errorBody);
-     }
-
-     async function tokenize(paymentMethod) {
-         const tokenResult = await paymentMethod.tokenize();
-         if (tokenResult.status === 'OK') {
-             return tokenResult.token;
-         } else {
-             let errorMessage = `Tokenization failed with status: ${tokenResult.status}`;
-             if (tokenResult.errors) {
-                 errorMessage += ` and errors: ${JSON.stringify(tokenResult.errors)}`;
-             }
-             throw new Error(errorMessage);
-         }
-     }
-       (async ()=> {
-         const card = await initializeCard(payments);
-
-         document.getElementById('card-button').addEventListener('click', async function () {
-             try {
-                 const token = await tokenize(card);
-                 const paymentResult = await createPayment(token);
-                 document.getElementById('payment-status').textContent = 'Payment successful!';
-             } catch (e) {
-                 document.getElementById('payment-status').textContent = `Payment failed: ${e.message}`;
-             }
-         });
-       })();
+  async function initializePaymentForm() {
+    if (!Square) {
+      throw new Error('Square.js failed to load properly');
+    }
+    const payments = Square.payments(appId, locationId);
+    try {
+      card = await payments.card();
+      await card.attach('#card-container');
+    } catch (e) {
+      console.error('Initializing Card failed', e);
+      return;
+    }
+  }
+    document.querySelector("#card-button").onclick = initalizePaymentForm;
    </script>
    </body>
 </html> 
