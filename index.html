@@ -60,6 +60,10 @@
                 <p id="payment-status"></p>
         </div>
    <script>
+    
+ const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
+  const locationId = 'LMJY97S69RNWK';
+  let card;
     (async ()=> {
         async function createPayment(token) {
    const body = JSON.stringify({
@@ -107,9 +111,6 @@
     return;
   }
 
- const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
-  const locationId = 'LMJY97S69RNWK';
-  let card;
 
   async function handlePaymentMethodSubmission(event, paymentMethod) {
     event.preventDefault();
