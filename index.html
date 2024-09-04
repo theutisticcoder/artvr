@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Whisperer Art</title>
+    <script type="text/javascript" src="https://sandbox.web.squarecdn.com/v1/square.js"></script>
+
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4386013108507854"
+         crossorigin="anonymous"></script>
+</head>
+<body>
+    <style>
+        button{
+            border-radius: 20px;
+            position: absolute;
+            height:15vh;
+            width: 100vw;
+            top: 85vh; 
+            color: white;
+            z-index: 5;
+            background-color: blue;
+
+        }
+        button{
+            position: absolute;
+        }
+        #viewer{
+            height: 100vh;
+            width: 100vw;
+        }
+        #vr{
+            border-radius: 20px;
+            position: absolute;
+            height:15vh;
+            width: 50vw;
+            top: 85vh;
+            left: 50vw;
+            color: white;
+            z-index: 5;
+            background-color: blue; 
+
+        }
+        strong{
+            font-size:35pt;
+            font-family: Georgia, Times, "Times New Roman", serif;
+        }
+        html{
+            background-color: black;
+        }
+        embed{
+            height:100vh;
+        }
+    </style>
+    <embed width="100%" frameborder="0" allowfullscreen allow="accelerometer;autoplay;fullscreen;gyroscope;magnetometer;xr-spatial-tracking" type="text/html" src="https://visit.virtualartgallery.com/b062815b-2197-4dbe-b049-eaa13cd04d3e">
+        <div class="payment-form">
+            <div id="card-container"></div>
+            <button id="card-button" class="button-credit-card">Buy a print of Lakerise<br> <img height="100" width="100" src="lake.JPG"></button>
+            <p id="payment-status"></p>
+        </div>
+   <script>
+     
+     const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'sandbox');  // Replace with your Application ID
+
+     async function initializeCard(payments) {
+         const card = await payments.card();
+         await card.attach('#card-container');
+         return card;
+     }
+
+     async function createPayment(token) {
+         const response = await fetch('/create-payment', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify({
+                 sourceId: token,
+             }),
+         });
+
+         if (response.ok) {
+             return response.json();
+         }
+
+         const errorBody = await response.text();
+         throw new Error(errorBody);
+     }
+
+     async function tokenize(paymentMethod) {
+         const tokenResult = await paymentMethod.tokenize();
+         if (tokenResult.status === 'OK') {
+             return tokenResult.token;
+         } else {
+             let errorMessage = `Tokenization failed with status: ${tokenResult.status}`;
+             if (tokenResult.errors) {
+                 errorMessage += ` and errors: ${JSON.stringify(tokenResult.errors)}`;
+             }
+             throw new Error(errorMessage);
+         }
+     }
+
+     document.addEventListener('DOMContentLoaded', async function () {
+         const card = await initializeCard(payments);
+
+         document.getElementById('card-button').addEventListener('click', async function () {
+             try {
+                 const token = await tokenize(card);
+                 const paymentResult = await createPayment(token);
+                 document.getElementById('payment-status').textContent = 'Payment successful!';
+             } catch (e) {
+                 document.getElementById('payment-status').textContent = `Payment failed: ${e.message}`;
+             }
+         });
+     });
+   </script>
+   </body>
+</html> 
