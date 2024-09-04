@@ -83,22 +83,9 @@
       console.error(e.message);
     }
   }
-  async function initializePaymentForm() {
-    if (!Square) {
-      throw new Error('Square.js failed to load properly');
-    }
-    const payments = Square.payments(appId, locationId);
-    try {
-      card = await payments.card();
-      await card.attach('#card-container');
-      document.querySelector("#card-button").onclick = async (e)=> {
+  document.querySelector("#card-button").onclick = async (e)=> {
 await handlePaymentMethodSubmission(e, card);
     };
-    } catch (e) {
-      console.error('Initializing Card failed', e);
-      return;
-    }
-  }
    </script>
    </body>
 </html> 
