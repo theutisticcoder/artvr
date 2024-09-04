@@ -78,7 +78,6 @@
     try {
       card = await payments.card();
       await card.attach('#card-container');
-      document.getElementById( 'card-container' ).scrollIntoView();
       document.getElementById( 'pay' ).hidden = false;
       document.getElementById( 'card-button' ).hidden = true;
 
