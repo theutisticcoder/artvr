@@ -60,6 +60,25 @@
                 <p id="payment-status"></p>
         </div>
    <script>
+    async function createPayment(token) {
+   const body = JSON.stringify({
+     locationId,
+     sourceId: token,
+     idempotencyKey: window.crypto.randomUUID(),
+   });
+   const paymentResponse = await fetch('/payment', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+     },
+     body,
+   });
+   if (paymentResponse.ok) {
+     return paymentResponse.json();
+   }
+   const errorBody = await paymentResponse.text();
+   throw new Error(errorBody);
+ }
      async function tokenize(paymentMethod) {
    const tokenResult = await paymentMethod.tokenize();
    if (tokenResult.status === 'OK') {
@@ -75,7 +94,6 @@
    }
  }
 
-document.addEventListener('DOMContentLoaded', async function () {
   if (!window.Square) {
     throw new Error('Square.js failed to load properly');
   }
@@ -111,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   document.querySelector("#card-button").onclick = async (e)=> {
 await handlePaymentMethodSubmission(e, card);
     };
-});
 
    </script>
    </body>
