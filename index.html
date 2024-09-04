@@ -63,9 +63,26 @@
 
  const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
   const locationId = 'LMJY97S69RNWK';
-
   let card;
 
+  async function handlePaymentMethodSubmission(event, paymentMethod) {
+    event.preventDefault();
+
+    try {
+      // disable the submit button as we await tokenization and make a
+      // payment request.
+      cardButton.disabled = true;
+      const token = await tokenize(paymentMethod);
+      const paymentResults = await createPayment(token);
+      displayPaymentResults('SUCCESS');
+
+      console.debug('Payment Success', paymentResults);
+    } catch (e) {
+      cardButton.disabled = false;
+      displayPaymentResults('FAILURE');
+      console.error(e.message);
+    }
+  }
   async function initializePaymentForm() {
     if (!Square) {
       throw new Error('Square.js failed to load properly');
@@ -74,13 +91,14 @@
     try {
       card = await payments.card();
       await card.attach('#card-container');
-
+      document.querySelector("#card-button").onclick = async (e)=> {
+await handlePaymentMethodSubmission(e, card);
+    };
     } catch (e) {
       console.error('Initializing Card failed', e);
       return;
     }
   }
-    document.querySelector("#card-button").onclick = initializePaymentForm;
    </script>
    </body>
 </html> 
