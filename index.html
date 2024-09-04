@@ -71,14 +71,14 @@
     try {
       // disable the submit button as we await tokenization and make a
       // payment request.
-      cardButton.disabled = true;
+      document.querySelector("#card-button").disabled = true;
       const token = await tokenize(paymentMethod);
       const paymentResults = await createPayment(token);
       displayPaymentResults('SUCCESS');
 
       console.debug('Payment Success', paymentResults);
     } catch (e) {
-      cardButton.disabled = false;
+        document.querySelector("#card-button").disabled = false;
       displayPaymentResults('FAILURE');
       console.error(e.message);
     }
