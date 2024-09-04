@@ -23,7 +23,7 @@
 
         }
         button{
-            position: absolute;
+            position: relative;
         }
         #viewer{
             height: 100vh;
@@ -54,9 +54,13 @@
     </style>
     <embed width="100%" frameborder="0" allowfullscreen allow="accelerometer;autoplay;fullscreen;gyroscope;magnetometer;xr-spatial-tracking" type="text/html" src="https://visit.virtualartgallery.com/b062815b-2197-4dbe-b049-eaa13cd04d3e">
         <div class="payment-form">
-            <div id="card-container"></div>
-            <button id="card-button" class="button-credit-card">Buy a print of Lakerise<br> <img height="100" width="100" src="lake.JPG"></button>
-            <p id="payment-status"></p>
+            <form>
+                <div id="card-container"></div>
+                <button id="card-button" class="button-credit-card">Buy a print of Lakerise<br> <img height="100" width="100" src="lake.JPG"></button>
+                <p id="payment-status"></p>
+                <button hidden type="submit" id="pay">Pay</button>
+            </form>
+           
         </div>
    <script>
 
@@ -73,6 +77,11 @@
     try {
       card = await payments.card();
       await card.attach('#card-container');
+      document.getElementById( 'card-container' ).scrollIntoView();
+      document.getElementById( 'pay' ).hidden = false;
+      document.getElementById( 'card-button' ).hidden = true;
+
+
     } catch (e) {
       console.error('Initializing Card failed', e);
       return;
