@@ -61,7 +61,7 @@
         </div>
    <script>
      
-     const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'sandbox');  // Replace with your Application ID
+     const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production');  // Replace with your Application ID
 
      async function initializeCard(payments) {
          const card = await payments.card();
