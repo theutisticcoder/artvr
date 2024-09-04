@@ -57,6 +57,7 @@
         <div class="payment-form">
                 <div id="card-container"></div>
                 <button id="card-button" class="button-credit-card">Buy A Print Of 'Lakerise' - $15<br> <img height="100" width="100" src="lake.JPG"></button>
+               <button id="pay" hidden>Pay</button>
                 <p id="payment-status"></p>
         </div>
    <script>
@@ -123,11 +124,25 @@ async function tokenize(paymentMethod) {
     }
   }
   document.querySelector("#card-button").onclick = async (e)=> {
-await handlePaymentMethodSubmission(e, card);
-    };
+    
+    if (!window.Square) {
+      throw new Error('Square.js failed to load properly');
+    }
   
+    const payments = window.Square.payments(appId, locationId);
+    try {
+      card = await initializeCard(payments);
+    } catch (e) {
+      console.error('Initializing Card failed', e);
+      return;
+    }
+  document.getElementById("pay").hidden = false;
+      };
 })();
+document.getElementById("pay").onclick = async (e)=> {
+      await handlePaymentMethodSubmission(e, card);
 
+    }
    </script>
    </body>
 </html> 

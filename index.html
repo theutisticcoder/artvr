@@ -57,6 +57,7 @@
         <div class="payment-form">
                 <div id="card-container"></div>
                 <button id="card-button" class="button-credit-card">Buy A Print Of 'Lakerise' - $15<br> <img height="100" width="100" src="lake.JPG"></button>
+               <button id="pay" hidden>pay</button>
                 <p id="payment-status"></p>
         </div>
    <script>
@@ -134,11 +135,14 @@
     console.error('Initializing Card failed', e);
     return;
   }
-
-await handlePaymentMethodSubmission(e, card);
+document.getElementById("pay").hidden = false;
     };
 
     })()
+    document.getElementById("pay").onclick = async (e)=> {
+      await handlePaymentMethodSubmission(e, card);
+
+    }
    </script>
    </body>
 </html> 
