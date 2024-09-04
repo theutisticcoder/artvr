@@ -99,7 +99,7 @@
              throw new Error(errorMessage);
          }
      }
-       (async function () {
+       (async ()=> {
          const card = await initializeCard(payments);
 
          document.getElementById('card-button').addEventListener('click', async function () {
