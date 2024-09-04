@@ -99,8 +99,7 @@
              throw new Error(errorMessage);
          }
      }
-
-     document.addEventListener('DOMContentLoaded', async function () {
+       (async function () {
          const card = await initializeCard(payments);
 
          document.getElementById('card-button').addEventListener('click', async function () {
@@ -112,7 +111,7 @@
                  document.getElementById('payment-status').textContent = `Payment failed: ${e.message}`;
              }
          });
-     });
+       })();
    </script>
    </body>
 </html> 
