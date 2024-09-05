@@ -33,11 +33,12 @@
     </div>
 
     <script>
+      var card;
         // Initialize Square Payment Form
         const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production'); // Use 'sandbox' for testing
 (async ()=> {
 
-  const card = await payments.card();
+   card = await payments.card();
             await card.attach('#card-container');
 })();
            
