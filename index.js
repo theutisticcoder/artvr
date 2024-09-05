@@ -13,7 +13,7 @@ const client = new Client({
 app.post('/create-payment', async (req, res) => {
   try {
     const response = await client.paymentsApi.createPayment({
-      sourceId: 'card-nonce-ok',
+      sourceId: 'cnon:card-nonce-ok',
       idempotencyKey: 'cd2e3872-32c2-4aae-856a-af8c274adfe3',
       amountMoney: {
         amount: 15,
