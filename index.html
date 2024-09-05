@@ -34,6 +34,8 @@
     
 
     <script>
+        let card;
+
 const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
 const locationId = 'LMJY97S69RNWK'; 
      async function initializeCard(payments) {
@@ -47,7 +49,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     throw new Error('Square.js failed to load properly');
   }
   const payments = window.Square.payments(appId, locationId);
-  let card;
   try {
     card = await initializeCard(payments);
   } catch (e) {
