@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 async function createPayment(req, res) {
-  const payload = await json(req);
+  const payload = await bodyParser.json(req);
   logger.debug(JSON.stringify(payload));
   // We validate the payload for specific fields. You may disable this feature
   // if you would prefer to handle payload validation on your own.
