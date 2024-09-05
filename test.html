@@ -25,57 +25,38 @@
 </head>
 <body>
   <embed width="100%" frameborder="0" allowfullscreen allow="accelerometer;autoplay;fullscreen;gyroscope;magnetometer;xr-spatial-tracking" type="text/html" src="https://visit.virtualartgallery.com/b062815b-2197-4dbe-b049-eaa13cd04d3e">
+ <form id="payment-form">
+  <div id="card-container"></div>
+  <button id="card-button" class="payment-button">Pay $15 for a print of: <img height="100" width="100" src="lake.JPG"></button>
+</form>
+<div id="payment-status-container"></div>
 
-    <div class="payment-form">
-        <div id="card-container"></div>
-        <button id="pay-button" class="payment-button">Pay $15 for a print of: <img height="100" width="100" src="lake.JPG"></button>
-        <p id="payment-status"></p>
-    </div>
+    
 
     <script>
-      var card;
-        // Initialize Square Payment Form
-        const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production'); // Use 'sandbox' for testing
-(async ()=> {
+const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
+const locationId = 'LMJY97S69RNWK'; 
+     async function initializeCard(payments) {
+   const card = await payments.card();
+   await card.attach('#card-container'); 
+   return card; 
+ }
 
-   card = await payments.card();
-            await card.attach('#card-container');
-})();
-           
+document.addEventListener('DOMContentLoaded', async function () {
+  if (!window.Square) {
+    throw new Error('Square.js failed to load properly');
+  }
+  const payments = window.Square.payments(appId, locationId);
+  let card;
+  try {
+    card = await initializeCard(payments);
+  } catch (e) {
+    console.error('Initializing Card failed', e);
+    return;
+  }
 
-
-        async function tokenizeAndProcessPayment() {
-                      const cardToken = await card.tokenize();
-            
-            if (cardToken.status === 'OK') {
-                const token = cardToken.token;
-                // Send the token to your server for processing
-                const response = await fetch('/create-payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ sourceId: token }),
-                });
-
-                if (response.ok) {
-                    const result = await response.json();
-                    document.getElementById('payment-status').textContent = 'Payment successful!';
-                } else {
-                    document.getElementById('payment-status').textContent = 'Payment failed!';
-                }
-            } else {
-                document.getElementById('payment-status').textContent = 'Tokenization failed!';
-            }
-        }
-
-        document.getElementById('pay-button').addEventListener('click', async () => {
-            try {
-                await tokenizeAndProcessPayment();
-            } catch (error) {
-                document.getElementById('payment-status').textContent = `Error: ${error.message}`;
-            }
-        });
+  // Step 5.2: create card payment
+});
     </script>
 </body>
 </html>
