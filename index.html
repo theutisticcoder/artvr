@@ -63,6 +63,7 @@
                 <p id="payment-status"></p>
         </div>
    <script>
+    var response;
     
  const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
   const locationId = 'LMJY97S69RNWK';
@@ -95,7 +96,7 @@
             if (cardToken.status === 'OK') {
                     const token = cardToken.token;
                     // Send the token to your server for processing
-                    const response = await fetch('/create-payment', {
+                     response = await fetch('/create-payment', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -114,7 +115,7 @@
                 }
               }
               catch(err){
-                console.error(err);
+                console.error("error:", err);
                 return;
               }
     }
