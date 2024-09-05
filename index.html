@@ -25,7 +25,7 @@
           idempotencyKey: window.crypto.randomUUID(),
         });
 
-        const paymentResponse = await fetch('/create-payment', {
+        const paymentResponse = await fetch('https://artar-eight.vercel.app/create-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
