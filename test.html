@@ -36,16 +36,15 @@
         // Initialize Square Payment Form
         const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production'); // Use 'sandbox' for testing
 (async ()=> {
+
   const card = await payments.card();
             await card.attach('#card-container');
-            return card;
 })();
            
 
 
         async function tokenizeAndProcessPayment() {
-            const card = await initializeCard();
-            const cardToken = await card.tokenize();
+                      const cardToken = await card.tokenize();
             
             if (cardToken.status === 'OK') {
                 const token = cardToken.token;
