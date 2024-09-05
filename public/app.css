@@ -56,7 +56,6 @@ body {
 #example-container {
   width: 100%;
   border: 1px solid #b3b3b3;
-  padding: 48px;
   margin: 32px 0;
   border-radius: 12px;
 }
@@ -90,11 +89,9 @@ label {
 }
 
 input {
-  padding: 12px;
   width: 100%;
   border-radius: 5px;
   border-width: 1px;
-  margin-top: 20px;
   font-size: 16px;
   border: 1px solid rgba(0, 0, 0, 0.15);
 }
@@ -114,7 +111,6 @@ button {
   font-size: 30px;
   font-weight: 500;
   line-height: 24px;
-  padding: 12px;
   width: 100%;
   box-shadow: 1px;
 }
