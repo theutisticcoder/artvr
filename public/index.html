@@ -12,9 +12,12 @@
   <div id="card-container"></div>
   <button id="card-button" type="button">Pay $15.00 For A Print Of <img src='https://i.postimg.cc/VvnnfZ8B/lake.jpg' border='0' alt='lake'/></button>
 </div>
-  <script type="module">
-    const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'LMJY97S69RNWK');
-    const card = await payments.card();
+  <script>
+    var payments, card;
+    (async ()=> {
+       payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'LMJY97S69RNWK');
+     card = await payments.card();
+    console.log(card);
     await card.attach('#card-container');
 
     const cardButton = document.getElementById('card-button');
@@ -23,6 +26,7 @@
 
       try {
         const result = await card.tokenize();
+        console.log(result);
         if (result.status === 'OK') {
           console.log(`Payment token is ${result.token}`);
           statusContainer.innerHTML = "Payment Successful";
@@ -41,5 +45,7 @@
         statusContainer.innerHTML = "Payment Failed";
       }
     });
+    })();
+    
   </script>
 </body>
