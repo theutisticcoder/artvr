@@ -10,7 +10,7 @@ const client = new Client({
     accessToken: 'EAAAlvd0owabWAkzKXlgauXdesy8ahHbIdJFMODM7leb7Z_SdXJv1RaQ84ZeuGmz',
 });
 
-app.post('/payment', async (req, res) => {
+app.post('/create-payment', async (req, res) => {
   try {
     const response = await client.paymentsApi.createPayment({
       sourceId: 'cnon:card-nonce-ok',

@@ -24,7 +24,7 @@
           idempotencyKey: window.crypto.randomUUID(),
         });
 
-        const paymentResponse = await fetch('/payment', {
+        const paymentResponse = await fetch('/create-payment', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
