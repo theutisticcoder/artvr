@@ -89,6 +89,7 @@
   document.getElementById("pay").hidden = false;
       };
       document.getElementById("pay").onclick = async (e)=> {
+        try{
         const cardToken = await card.tokenize();
             
             if (cardToken.status === 'OK') {
@@ -111,6 +112,10 @@
                 } else {
                     document.getElementById('payment-status').textContent = 'Tokenization failed!';
                 }
+              }
+              catch(err){
+                console.error(err);
+              }
     }
 })();
 
