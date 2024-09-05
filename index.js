@@ -6,13 +6,13 @@ const app = express();
 app.use(bodyParser.json());
 
 const squareClient = new Client({
-    environment: Environment.Sandbox, // or Environment.Production
+    environment: Environment.Production, // or Environment.Production
     accessToken: 'EAAAlvd0owabWAkzKXlgauXdesy8ahHbIdJFMODM7leb7Z_SdXJv1RaQ84ZeuGmz',
 });
 
 app.post('/create-payment', async (req, res) => {
     try {
-      const response = await client.paymentsApi.createPayment({
+      const response = await squareClient.paymentsApi.createPayment({
         sourceId: 'cnon:card-nonce-ok',
         idempotencyKey: '6f32f7e1-f234-4c8e-9b32-42f7f3cb69fb',
         amountMoney: {
