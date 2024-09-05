@@ -22,6 +22,7 @@ app.post('/create-payment', async (req, res) => {
     });
   
     console.log(response.result);
+    res.status(200).json({ message: 'Payment created successfully' });
   } catch(error) {
     console.log(error);
   }
