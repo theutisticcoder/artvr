@@ -10,7 +10,7 @@ const squareClient = new Client({
     accessToken: 'EAAAlvd0owabWAkzKXlgauXdesy8ahHbIdJFMODM7leb7Z_SdXJv1RaQ84ZeuGmz',
 });
 
-app.post('/process-payment', async (req, res) => {
+app.post('/create-payment', async (req, res) => {
     try {
       const response = await client.paymentsApi.createPayment({
         sourceId: 'cnon:card-nonce-ok',
@@ -27,6 +27,7 @@ app.post('/process-payment', async (req, res) => {
     }
 });
 app.use(express.static(__dirname))
+app.use(express.static("create-payment"))
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
