@@ -1,12 +1,9 @@
-// micro provides http helpers
-const { createError, json, send } = require('micro');
-// microrouter provides http server routing
-const { router, get, post } = require('microrouter');
+const express = require("express");
 // serve-handler serves static assets
 const staticHandler = require('serve-handler');
 // async-retry will retry failed API requests
 const retry = require('async-retry');
-
+const app = express();
 // logger gives us insight into what's happening
 const logger = require('./server/logger');
 // schema validates incoming requests
@@ -41,7 +38,7 @@ async function createPayment(req, res) {
         // See Orders documentation: https://developer.squareup.com/docs/orders-api/what-it-does
         amountMoney: {
           // the expected amount is in cents, meaning this is $1.00.
-          amount: '100',
+          amount: '1500',
           // If you are a non-US account, you must change the currency to match the country in which
           // you are accepting the payment.
           currency: 'USD',
@@ -147,10 +144,13 @@ async function serveStatic(req, res) {
     public: "public",
   });
 }
-
+app.use(express.static("pubic"))
+app.use(express.json()); // This middleware is required to parse JSON request bodies
+app.use(express.static("payment"))
 // export routes to be served by micro
-module.exports = router(
-  post('/payment', createPayment),
-  post('/card', storeCard),
-  get('/*', serveStatic),
-);
+app.post('/payment', createPayment);
+app.post('/card', storeCard);
+
+app.get('/*', serveStatic);
+module.exports = app;
+app.listen(3000)
