@@ -89,16 +89,28 @@
   document.getElementById("pay").hidden = false;
       };
       document.getElementById("pay").onclick = async (e)=> {
-        try {
-            const tokenResult = await card.tokenize();
-            if (tokenResult.status === 'OK') {
-                // Handle the payment with tokenResult.token
+            const cardToken = await card.tokenize();
+            
+        if (cardToken.status === 'OK') {
+                const token = cardToken.token;
+                // Send the token to your server for processing
+                const response = await fetch('/create-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ sourceId: token }),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    document.getElementById('payment-status').textContent = 'Payment successful!';
+                } else {
+                    document.getElementById('payment-status').textContent = 'Payment failed!';
+                }
             } else {
-                console.error('Tokenization failed');
+                document.getElementById('payment-status').textContent = 'Tokenization failed!';
             }
-        } catch (error) {
-            console.error('Error during payment: ', error);
-        }
     }
 })();
 
