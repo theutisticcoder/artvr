@@ -14,7 +14,7 @@ app.post('/api/app', async (req, res) => {
   try {
     const response = await client.paymentsApi.createPayment({
       sourceId: 'ccof:GaJGNaZa8x4OgDJn4GB',
-      idempotencyKey: Date.now(),
+      idempotencyKey: Date.now().toString(),
       amountMoney: {
         amount: 1500,
         currency: 'USD'
