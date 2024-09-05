@@ -4,11 +4,11 @@
     <link href="/app.css" rel="stylesheet" />
     <script
       type="text/javascript"
-      src="https://sandbox.web.squarecdn.com/v1/square.js"
+      src="https://web.squarecdn.com/v1/square.js"
     ></script>
     <script>
-      const appId = '{APPLICATION_ID}';
-      const locationId = '{LOCATION_ID}';
+      const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
+      const locationId = 'LMJY97S69RNWK';
 
       async function initializeCard(payments) {
         const card = await payments.card();
@@ -110,7 +110,7 @@
           const statusContainer = document.getElementById(
             'payment-status-container',
           );
-          statusContainer.className = 'missing-credentials';
+          statusContainer.classList.add('missing-credentials');
           statusContainer.style.visibility = 'visible';
           return;
         }
