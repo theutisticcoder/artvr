@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Square Payment Form</title>
+    <title>Paper Art Gallery</title>
     <script src="https://web.squarecdn.com/v1/square.js"></script>
     <style>
       embed{
@@ -35,10 +35,12 @@
     <script>
         // Initialize Square Payment Form
         const payments = Square.payments('sq0idp-FdxhBGHFL5PcedNywT1dig', 'production'); // Use 'sandbox' for testing
-
-            const card = await payments.card();
+(async ()=> {
+  const card = await payments.card();
             await card.attach('#card-container');
             return card;
+})();
+           
 
 
         async function tokenizeAndProcessPayment() {
