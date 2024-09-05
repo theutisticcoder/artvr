@@ -144,7 +144,7 @@ async function storeCard(req, res) {
 async function serveStatic(req, res) {
   logger.debug('Handling request', req.path);
   await staticHandler(req, res, {
-    public: 'public',
+    public: __dirname,
   });
 }
 
