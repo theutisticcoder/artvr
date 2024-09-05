@@ -27,7 +27,7 @@ app.post('/create-payment', async (req, res) => {
     }
 });
 app.use(express.static(__dirname))
-app.use(express.static("create-payment"))
+app.use(express.static("/create-payment"))
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
