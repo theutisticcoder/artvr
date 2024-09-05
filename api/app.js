@@ -16,7 +16,7 @@ app.post('/api/app', async (req, res) => {
       sourceId: 'ccof:GaJGNaZa8x4OgDJn4GB',
       idempotencyKey: Date.now(),
       amountMoney: {
-        amount: 15,
+        amount: 1500,
         currency: 'USD'
       },
       appFeeMoney: {
@@ -37,7 +37,7 @@ app.post('/api/app', async (req, res) => {
     });
   
   
-app.use(express.static(".."))
+app.use(express.static("/"))
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
