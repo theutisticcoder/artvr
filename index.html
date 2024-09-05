@@ -3,125 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paper Whisperer Art</title>
-<script type="text/javascript" src="https://web.squarecdn.com/v1/square.js"></script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4386013108507854"
-         crossorigin="anonymous"></script>
-</head>
-<body>
+    <title>Paper Art Gallery</title>
+    <script src="https://web.squarecdn.com/v1/square.js"></script>
     <style>
-      
-      button{
-            border-radius: 20px;
+      embed{
+        height: 80vh;
+      }
+        .payment-form {
+            width: 300px;
+            margin: 0 auto;
+        }
+        .payment-button {
+            background-color: #4CAF50;
             color: white;
-            z-index: 5;
-            background-color: blue;
-
-        }
-        #pay{
-          font-size: 50pt;
-        }
-        #viewer{
-            height: 100vh;
-            width: 100vw;
-        }
-        #vr{
-            border-radius: 20px;
-            position: absolute;
-            height:15vh;
-            width: 50vw;
-            top: 85vh;
-            left: 50vw;
-            color: white;
-            z-index: 5;
-            background-color: blue; 
-
-        }
-        strong{
-            font-size:35pt;
-            font-family: Georgia, Times, "Times New Roman", serif;
-        }
-        html{
-            background-color: black;
-        }
-        embed{
-            height:100vh;
-        }
-        form{
-            text-align: center;
-            position: absolute;
-            top: 50vh;
-            height: 50vh;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
     </style>
-    <embed width="100%" frameborder="0" allowfullscreen allow="accelerometer;autoplay;fullscreen;gyroscope;magnetometer;xr-spatial-tracking" type="text/html" src="https://visit.virtualartgallery.com/b062815b-2197-4dbe-b049-eaa13cd04d3e">
-        <div class="payment-form">
-                <div id="card-container"></div>
-                <button id="card-button" class="button-credit-card">Buy A Print Of 'Lakerise' - $15<br> <img height="100" width="100" src="lake.JPG"></button>
-               <button id="pay" hidden>pay</button>
-                <p id="payment-status"></p>
-        </div>
-   <script>
-    var response;
+</head>
+<body>
+  <embed width="100%" frameborder="0" allowfullscreen allow="accelerometer;autoplay;fullscreen;gyroscope;magnetometer;xr-spatial-tracking" type="text/html" src="https://visit.virtualartgallery.com/b062815b-2197-4dbe-b049-eaa13cd04d3e">
+ <form id="payment-form">
+  <div id="card-container"></div>
+  <button id="card-button" class="payment-button">Pay $15 for a print of: <img height="100" width="100" src="lake.JPG"></button>
+</form>
+<div id="payment-status-container"></div>
+
     
- const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
-  const locationId = 'LMJY97S69RNWK';
-  let card;
-  (async ()=> {
-  async function initializeCard(payments) {
+
+    <script>
+const appId = 'sq0idp-FdxhBGHFL5PcedNywT1dig';
+const locationId = 'LMJY97S69RNWK'; 
+     async function initializeCard(payments) {
    const card = await payments.card();
    await card.attach('#card-container'); 
    return card; 
  }
-  document.querySelector("#card-button").onclick = async (e)=> {
-    
-    if (!window.Square) {
-      throw new Error('Square.js failed to load properly');
-    }
-  
-    const payments = window.Square.payments(appId, locationId);
-    try {
-      card = await initializeCard(payments);
-    } catch (e) {
-      console.error('Initializing Card failed', e);
-      return;
-    }
-  document.getElementById("pay").hidden = false;
-      };
-      document.getElementById("pay").onclick = async (e)=> {
-        try{
-        const cardToken = await card.tokenize();
-            
-            if (cardToken.status === 'OK') {
-                    const token = cardToken.token;
-                    // Send the token to your server for processing
-                     response = await fetch('/create-payment', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ sourceId: token }),
-                    });
-    
-                    if (response.ok) {
-                        const result = await response.json();
-                        document.getElementById('payment-status').textContent = 'Payment successful!';
-                    } else {
-                        document.getElementById('payment-status').textContent = 'Payment failed!';
-                    }
-                } else {
-                    document.getElementById('payment-status').textContent = 'Tokenization failed!';
-                }
-              }
-              catch(err){
-                console.error("error:", err);
-                return;
-              }
-    }
-})();
 
-    
-   </script>
-   </body>
-</html> 
+document.addEventListener('DOMContentLoaded', async function () {
+  if (!window.Square) {
+    throw new Error('Square.js failed to load properly');
+  }
+  const payments = window.Square.payments(appId, locationId);
+  let card;
+  try {
+    card = await initializeCard(payments);
+  } catch (e) {
+    console.error('Initializing Card failed', e);
+    return;
+  }
+
+  // Step 5.2: create card payment
+});
+    </script>
+</body>
+</html>
