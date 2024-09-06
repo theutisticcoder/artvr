@@ -38,7 +38,7 @@ async function createPayment(req, res) {
         // See Orders documentation: https://developer.squareup.com/docs/orders-api/what-it-does
         amountMoney: {
           // the expected amount is in cents, meaning this is $15.00.
-          amount: '150',
+          amount: '1500',
           // If you are a non-US account, you must change the currency to match the country in which
           // you are accepting the payment.
           currency: 'USD',
@@ -70,6 +70,13 @@ async function createPayment(req, res) {
           orderId: result.payment.orderId,
         },
       });
+      try {
+        const response = await client.ordersApi.createOrder({});
+      
+        console.log(response.result);
+      } catch(error) {
+        console.log(error);
+      }
     } catch (ex) {
       if (ex instanceof ApiError) {
         // likely an error in the request. don't retry
