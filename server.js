@@ -71,7 +71,9 @@ async function createPayment(req, res) {
         },
       });
       try {
-        const response = await client.ordersApi.createOrder({ idempotencyKey: payload.idempotencyKey });
+        const response = await client.ordersApi.createOrder({ order: {
+          locationId: 'LMJY97S69RNWK'
+        }, idempotencyKey: payload.idempotencyKey });
       
         console.log(response.result);
       } catch(error) {
